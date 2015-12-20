@@ -8,12 +8,10 @@ chrome.commands.onCommand.addListener(function(command) {
                 currentWindow: true
             }, function(activeTabs) {
                 var currentTab = activeTabs[0];
-                console.log(currentTab);
                 chrome.tabs.update(currentTab.id, {
                     'highlighted': false
                 });
                 var nextTab = allTabs[(currentTab.index + 1)%allTabs.length];
-                console.log(nextTab);
                 chrome.tabs.update(nextTab.id, {
                     'highlighted': true,
                     'active': true,
@@ -22,7 +20,7 @@ chrome.commands.onCommand.addListener(function(command) {
             });
         });
     } else if (command == "search") {
-        console.log("search");//TO-DO
+        //TO-DO
     }
 });
 

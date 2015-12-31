@@ -19,9 +19,15 @@
           },
           "description": "switch tab"
       },
-      "search": {
+      "pinned-tab": {
           "suggested_key": {
               "default": "Alt+2"
+          },
+          "description": "pinned tab"
+      },
+      "search": {
+          "suggested_key": {
+              "default": "Alt+3"
           },
           "description": "search"
       }

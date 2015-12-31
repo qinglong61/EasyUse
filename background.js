@@ -19,6 +19,20 @@ chrome.commands.onCommand.addListener(function(command) {
                 });
             });
         });
+    } else if (command == "pinned-tab") {
+        chrome.tabs.query({
+            currentWindow: true
+        }, function(allTabs) {
+            chrome.tabs.query({
+                active: true,
+                currentWindow: true
+            }, function(activeTabs) {
+                var currentTab = activeTabs[0];
+                chrome.tabs.update(currentTab.id, {
+                    'pinned': true
+                });
+            });
+        });
     } else if (command == "search") {
         //TO-DO
     }

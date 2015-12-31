@@ -29,7 +29,7 @@ chrome.commands.onCommand.addListener(function(command) {
             }, function(activeTabs) {
                 var currentTab = activeTabs[0];
                 chrome.tabs.update(currentTab.id, {
-                    'pinned': true
+                    'pinned': !currentTab.pinned
                 });
             });
         });

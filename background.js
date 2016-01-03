@@ -43,3 +43,24 @@ chrome.commands.onCommand.addListener(function(command) {
 //         console.log(commands[i]);
 //     }
 // });
+
+chrome.runtime.onInstalled.addListener( function () {
+    chrome.contextMenus.create({
+        id:'savePic',
+        type:'normal',
+        title:'保存图片',
+        contexts: ['image']
+    });
+});
+
+chrome.contextMenus.onClicked.addListener( function (info, tab) {
+    if (info.menuItemId == 'savePic') {
+        var date = new Date();
+        chrome.downloads.download({
+            filename: date.getTime() + '.' + info.srcUrl.split(".").pop(),
+            url: info.srcUrl,
+            conflictAction: 'uniquify',
+            saveAs: true
+        });
+    }
+});

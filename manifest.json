@@ -3,7 +3,9 @@
   "description": "EasyUse",
   "version": "1.0",
   "permissions": [
-    "activeTab"
+    "activeTab",
+    "contextMenus",
+    "downloads"
   ],
   "background": {
     "scripts": ["background.js"],

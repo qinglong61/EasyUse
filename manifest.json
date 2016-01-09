@@ -5,7 +5,8 @@
   "permissions": [
     "activeTab",
     "contextMenus",
-    "downloads"
+    "downloads",
+    "pageCapture"
   ],
   "background": {
     "scripts": ["background.js"],
@@ -32,6 +33,12 @@
               "default": "Alt+3"
           },
           "description": "search"
+      },
+      "save-as-MHTML": {
+          "suggested_key": {
+              "default": "Alt+4"
+          },
+          "description": "save as MHTML"
       }
   },
   "manifest_version": 2

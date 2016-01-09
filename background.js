@@ -35,6 +35,23 @@ chrome.commands.onCommand.addListener(function(command) {
         });
     } else if (command == "search") {
         //TO-DO
+        console.log(chrome);
+    } else if (command == "save-as-MHTML") {
+        chrome.tabs.query({
+            currentWindow: true
+        }, function(allTabs) {
+            chrome.tabs.query({
+                active: true,
+                currentWindow: true
+            }, function(activeTabs) {
+                var currentTab = activeTabs[0];
+                chrome.pageCapture.saveAsMHTML({tabId: currentTab.id}, function (mhtmlData) {
+                    //binary mhtmlData
+                });
+            });
+        });
+    } else if (command == "read-it-later") {
+        //TO-DO
     }
 });
 

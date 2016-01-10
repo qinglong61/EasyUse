@@ -51,8 +51,19 @@ chrome.commands.onCommand.addListener(function(command) {
                 currentWindow: true
             }, function(activeTabs) {
                 var currentTab = activeTabs[0];
-                chrome.pageCapture.saveAsMHTML({tabId: currentTab.id}, function (mhtmlData) {
-                    //binary mhtmlData
+                chrome.pageCapture.saveAsMHTML({tabId: currentTab.id}, function (mhtmlData) {//binary mhtmlData
+                    var objectUrl = window.URL.createObjectURL(mhtmlData);
+                    chrome.downloads.download(
+                        {
+                            filename: encodeForValidFileName(currentTab.title) + '.mhtml',
+                            url: objectUrl,
+                            conflictAction: 'uniquify',
+                            saveAs: true
+                        },
+                        function () {
+                            window.URL.revokeObjectURL(objectUrl);
+                        }
+                    );
                 });
             });
         });
@@ -93,3 +104,19 @@ chrome.contextMenus.onClicked.addListener( function (info, tab) {
         });
     }
 });
+
+function encodeForValidFileName(fileName) {
+    var newFileName = "";
+    var errChar = "\\/:*?\"<>|";
+    for (var i = 0; i < fileName.length; i++) {
+        var char = fileName.charAt(i);
+        for (var j = 0; j < errChar.length; j++) {
+            if (char == errChar.charAt(j)) {
+                char = "%u" + char.charCodeAt(0).toString(16);
+                break;
+            }
+        }
+        newFileName += char;
+    }
+    return newFileName;
+}

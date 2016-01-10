@@ -1,45 +1,58 @@
 {
-  "name": "EasyUse",
-  "description": "EasyUse",
-  "version": "1.0",
-  "permissions": [
-    "activeTab",
-    "contextMenus",
-    "downloads",
-    "pageCapture"
-  ],
-  "background": {
-    "scripts": ["background.js"],
-    "persistent": false
-  },
-  "browser_action": {
-    "default_title": "EasyUse"
-  },
-  "commands": {
-      "switch-tab": {
-          "suggested_key": {
-              "default": "Alt+1"
-          },
-          "description": "switch tab"
-      },
-      "pinned-tab": {
-          "suggested_key": {
-              "default": "Alt+2"
-          },
-          "description": "pinned tab"
-      },
-      "search": {
-          "suggested_key": {
-              "default": "Alt+3"
-          },
-          "description": "search"
-      },
-      "save-as-MHTML": {
-          "suggested_key": {
-              "default": "Alt+4"
-          },
-          "description": "save as MHTML"
-      }
-  },
-  "manifest_version": 2
+    "name": "EasyUse",
+    "description": "EasyUse",
+    "version": "1.0",
+    "icons": {
+        "48": "images/icon_48.png",
+        "72": "images/icon_72.png",
+        "128": "images/icon_128.png"
+    },
+    "permissions": [
+        "activeTab",
+        "contextMenus",
+        "downloads",
+        "pageCapture",
+        "desktopCapture",
+        "tabCapture",
+        "storage"
+    ],
+    "background": {
+        "scripts": [
+            "background.js",
+            "readItLater.js"
+        ],
+        "persistent": false
+    },
+    "browser_action": {
+        "default_icon": "images/icon_48.png",
+        "default_title": "EasyUse",
+        "default_popup": "popup.html"
+    },
+    "commands": {
+        "switch-tab": {
+            "suggested_key": {
+                "default": "Alt+1"
+            },
+            "description": "switch tab"
+        },
+        "read-it-later": {
+            "suggested_key": {
+                "default": "Alt+2"
+            },
+            "description": "read it later"
+        },
+        "search": {
+            "suggested_key": {
+                "default": "Alt+3"
+            },
+            "description": "search"
+        },
+        "save-as-MHTML": {
+            "suggested_key": {
+                "default": "Alt+4"
+            },
+            "description": "save as MHTML"
+        }
+    },
+    "manifest_version": 2
 }

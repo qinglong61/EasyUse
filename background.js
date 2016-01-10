@@ -19,7 +19,7 @@ chrome.commands.onCommand.addListener(function(command) {
                 });
             });
         });
-    } else if (command == "pinned-tab") {
+    } else if (command == "read-it-later") {
         chrome.tabs.query({
             currentWindow: true
         }, function(allTabs) {
@@ -28,9 +28,15 @@ chrome.commands.onCommand.addListener(function(command) {
                 currentWindow: true
             }, function(activeTabs) {
                 var currentTab = activeTabs[0];
-                chrome.tabs.update(currentTab.id, {
-                    'pinned': !currentTab.pinned
-                });
+                readItLater.read_it_later(
+                    {
+                        'title': currentTab.title,
+                        'url': currentTab.url
+                    },
+                    function () {
+                        chrome.tabs.remove(currentTab.id);
+                    }
+                );
             });
         });
     } else if (command == "search") {
@@ -50,10 +56,16 @@ chrome.commands.onCommand.addListener(function(command) {
                 });
             });
         });
-    } else if (command == "read-it-later") {
-        //TO-DO
     }
 });
+
+// chrome.tabs.onActivated.addListener(function( activeInfo ){
+//   var windowId = activeInfo.windowId;
+//
+//   chrome.tabs.captureVisibleTab(windowId, undefined , function(blob){
+//     blob = null;
+//   });
+// });
 
 // chrome.commands.getAll(function(commands) {
 //     for (var i=0; i < commands.length; i++) {

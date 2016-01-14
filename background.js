@@ -21,50 +21,42 @@ chrome.commands.onCommand.addListener(function(command) {
         });
     } else if (command == "read-it-later") {
         chrome.tabs.query({
+            active: true,
             currentWindow: true
-        }, function(allTabs) {
-            chrome.tabs.query({
-                active: true,
-                currentWindow: true
-            }, function(activeTabs) {
-                var currentTab = activeTabs[0];
-                readItLater.read_it_later(
-                    {
-                        'title': currentTab.title,
-                        'url': currentTab.url
-                    },
-                    function () {
-                        chrome.tabs.remove(currentTab.id);
-                    }
-                );
-            });
+        }, function(activeTabs) {
+            var currentTab = activeTabs[0];
+            readItLater.read_it_later(
+                {
+                    'title': currentTab.title,
+                    'url': currentTab.url
+                },
+                function () {
+                    chrome.tabs.remove(currentTab.id);
+                }
+            );
         });
     } else if (command == "search") {
         //TO-DO
         console.log(chrome);
     } else if (command == "save-as-MHTML") {
         chrome.tabs.query({
+            active: true,
             currentWindow: true
-        }, function(allTabs) {
-            chrome.tabs.query({
-                active: true,
-                currentWindow: true
-            }, function(activeTabs) {
-                var currentTab = activeTabs[0];
-                chrome.pageCapture.saveAsMHTML({tabId: currentTab.id}, function (mhtmlData) {//binary mhtmlData
-                    var objectUrl = window.URL.createObjectURL(mhtmlData);
-                    chrome.downloads.download(
-                        {
-                            filename: encodeForValidFileName(currentTab.title) + '.mhtml',
-                            url: objectUrl,
-                            conflictAction: 'uniquify',
-                            saveAs: true
-                        },
-                        function () {
-                            window.URL.revokeObjectURL(objectUrl);
-                        }
-                    );
-                });
+        }, function(activeTabs) {
+            var currentTab = activeTabs[0];
+            chrome.pageCapture.saveAsMHTML({tabId: currentTab.id}, function (mhtmlData) {//binary mhtmlData
+                var objectUrl = window.URL.createObjectURL(mhtmlData);
+                chrome.downloads.download(
+                    {
+                        filename: encodeForValidFileName(currentTab.title) + '.mhtml',
+                        url: objectUrl,
+                        conflictAction: 'uniquify',
+                        saveAs: true
+                    },
+                    function () {
+                        window.URL.revokeObjectURL(objectUrl);
+                    }
+                );
             });
         });
     }
